@@ -78,6 +78,9 @@ export default function WorkVideo({ url, title, category = "Film" }) {
             <span aria-hidden="true">×</span>
           </button>
         </div>
+        <p className="work-video-note">
+          If the embedded player stays blank, <a href={url} target="_blank" rel="noopener noreferrer">open the source video in a new tab</a>.
+        </p>
         <div className="work-video-frame">
           {isOpen && (
             <iframe
@@ -90,7 +93,6 @@ export default function WorkVideo({ url, title, category = "Film" }) {
             />
           )}
         </div>
-        <p className="work-video-note">Video playback is provided by the linked hosting service.</p>
       </dialog>
     </>
   );

@@ -856,10 +856,14 @@ textarea {
   border: 0;
 }
 .work-video-note {
-  margin: 12px 0 0;
+  margin: 0 0 12px;
   color: rgba(247, 246, 242, 0.62);
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.08em;
+}
+.work-video-note a {
+  color: var(--paper-light);
+  text-underline-offset: 3px;
 }
 .wedding-gallery-dialog {
   width: min(1280px, calc(100vw - 40px));
@@ -1793,6 +1797,40 @@ textarea {
 @media (max-width: 760px) {
   html {
     scroll-padding-top: 66px;
+  }
+  .work-video-dialog {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 0;
+    box-shadow: none;
+  }
+  .work-video-dialog-topline {
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+  }
+  .work-video-dialog h2 {
+    font-size: clamp(21px, 6vw, 30px);
+    line-height: 1.05;
+  }
+  .work-video-close {
+    width: 42px;
+    height: 42px;
+  }
+  .work-video-frame {
+    flex: 0 0 auto;
+  }
+  .work-video-note {
+    line-height: 1.45;
   }
   .site-header {
     height: 66px;

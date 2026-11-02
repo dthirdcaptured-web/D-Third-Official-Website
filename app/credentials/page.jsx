@@ -1,34 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
-import { siteConfig } from "../../lib/site-config.js";
+import WorkVideoSection from "../work-video-section.jsx";
+import { createPageMetadata, siteConfig } from "../../lib/site-config.js";
 import { SiteFooter, SiteHeader } from "../site-chrome.jsx";
 
 function safeExternalUrl(value) {
   try {
     const url = new URL(value);
-    if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return "";
+    if (url.protocol !== "https:" || url.username || url.password) return "";
     return url.href;
   } catch {
     return "";
   }
 }
 
-export const metadata = {
-  title: "Credentials",
-  description: "Selected wedding films, portfolio work, and professional credentials by D’Third Bautista of D’Third Bautista Captured.",
-  ...(siteConfig.siteUrl ? { alternates: { canonical: "/credentials" } } : {}),
-  openGraph: {
-    title: "Credentials | D’Third Bautista Captured",
-    description: "Selected wedding films, portfolio work, and professional credentials by D’Third Bautista of D’Third Bautista Captured.",
-    ...(siteConfig.siteUrl ? { url: `${siteConfig.siteUrl}/credentials` } : {}),
-    ...(siteConfig.siteUrl ? { images: [{
-      url: `${siteConfig.siteUrl}/images/dthird-social.webp`,
-      width: 1200,
-      height: 630,
-      alt: "D’Third Bautista, videographer behind D’Third Bautista Captured",
-    }] } : {}),
-  },
-};
+const description = "Award-winning visual storytelling by D'Third Captured, with selected work and tourism video recognition.";
+
+export const metadata = createPageMetadata({
+  title: "Why Choose D'Third Captured?",
+  description,
+  path: "/credentials",
+});
 
 export default function CredentialsPage() {
   return (
@@ -37,40 +29,15 @@ export default function CredentialsPage() {
       <SiteHeader currentPage="credentials" />
       <main className="credentials-page" id="main">
         <section className="credentials-intro section-wrap" aria-labelledby="credentials-title">
-          <p className="eyebrow"><span className="eyebrow-mark" /> Portfolio / credentials</p>
-          <h1 id="credentials-title">A record of<br />the <em>work.</em></h1>
-          <p className="credentials-lede">Selected films, projects, and professional credentials by D’THIRD.</p>
-        </section>
-
-        <section className="credentials-section section-wrap" aria-labelledby="portfolio-credentials-title">
-          <div className="credentials-section-heading">
-            <p className="eyebrow"><span className="eyebrow-mark" /> 01 / Selected portfolio</p>
-            <h2 id="portfolio-credentials-title">Stories made to stay.</h2>
-          </div>
-          {siteConfig.portfolioItems.length ? (
-            <div className="credential-work-list">
-              {siteConfig.portfolioItems.map((item, index) => (
-                <Link className="credential-work-card" href="/#work" key={`${item.title}-${index}`}>
-                  <span className="credential-work-image">
-                    <Image src={item.image} alt={item.alt || item.title} fill sizes="(max-width: 760px) 86vw, 64vw" />
-                  </span>
-                  <span className="credential-work-copy">
-                    <span className="credential-work-category">{item.category || "Selected work"}</span>
-                    <span className="credential-work-title">{item.title}</span>
-                    <span className="credential-work-link">View project <span aria-hidden="true">↗</span></span>
-                  </span>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="credentials-empty">Portfolio projects will appear here as they are added.</p>
-          )}
+          <p className="eyebrow"><span className="eyebrow-mark" /> D'Third Captured / Recognition</p>
+          <h1 id="credentials-title">Why Choose<br />D'Third <em>Captured?</em></h1>
+          <p className="credentials-lede">Thoughtful visual storytelling, backed by award-winning tourism video work.</p>
         </section>
 
         <section className="credentials-section credentials-certificates section-wrap" aria-labelledby="certificate-title">
           <div className="credentials-section-heading">
-            <p className="eyebrow"><span className="eyebrow-mark" /> 02 / Certificate archive</p>
-            <h2 id="certificate-title">Training &amp; recognition.</h2>
+            <p className="eyebrow"><span className="eyebrow-mark" /> 01 / Awards &amp; recognition</p>
+            <h2 id="certificate-title">Award-winning storytelling.</h2>
           </div>
           {siteConfig.credentials.length ? (
             <ul className="certificate-list">
@@ -85,15 +52,35 @@ export default function CredentialsPage() {
               ))}
             </ul>
           ) : (
-            <div className="certificate-placeholder" role="note">
-              <span className="certificate-placeholder-stamp" aria-hidden="true">+</span>
-              <div className="certificate-placeholder-copy">
-                <span className="certificate-placeholder-label">Placeholder credential</span>
-                <h3>Certificate title</h3>
-                <p>Issuing organization · Year earned</p>
-              </div>
-              <span className="certificate-placeholder-note">Details to be added</span>
+            <p className="credentials-empty">No credentials have been published yet.</p>
+          )}
+        </section>
+
+        <section className="credentials-section section-wrap" aria-labelledby="portfolio-credentials-title">
+          <div className="credentials-section-heading">
+            <p className="eyebrow"><span className="eyebrow-mark" /> 02 / Selected portfolio</p>
+            <h2 id="portfolio-credentials-title">Stories made to stay.</h2>
+          </div>
+          {siteConfig.portfolioItems.length ? (
+            <div className="credential-work-list">
+              {siteConfig.portfolioItems.map((item, index) => (
+                <article className="credential-work-card" key={item.title + index}>
+                  <div className="credential-work-image">
+                    <Image src={item.image} alt={item.alt || item.title} fill sizes="(max-width: 760px) 86vw, 64vw" />
+                  </div>
+                  <div className="credential-work-copy">
+                    <span className="credential-work-category">{item.recognition || item.category || "Selected work"}</span>
+                    <span className="credential-work-title">{item.title}</span>
+                    <div className="credential-work-actions">
+                      <Link className="credential-work-link" href="/#work">View project <span aria-hidden="true">&#8599;</span></Link>
+                      <WorkVideoSection url={item.videoUrl} title={item.title} category={item.category} />
+                    </div>
+                  </div>
+                </article>
+              ))}
             </div>
+          ) : (
+            <p className="credentials-empty">Portfolio projects will appear here as they are added.</p>
           )}
         </section>
 

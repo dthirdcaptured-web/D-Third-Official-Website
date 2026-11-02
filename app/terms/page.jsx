@@ -1,13 +1,13 @@
 import LegalPage from "../legal-page.jsx";
-import { siteConfig } from "../../lib/site-config.js";
+import { createPageMetadata } from "../../lib/site-config.js";
 
 const description = "Terms for using the D'THIRD videography and visual storytelling website.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Terms of Service",
   description,
-  ...(siteConfig.siteUrl ? { alternates: { canonical: "/terms" } } : {}),
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

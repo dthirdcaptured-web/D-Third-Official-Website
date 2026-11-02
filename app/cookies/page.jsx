@@ -1,13 +1,13 @@
 import LegalPage from "../legal-page.jsx";
-import { siteConfig } from "../../lib/site-config.js";
+import { createPageMetadata } from "../../lib/site-config.js";
 
 const description = "D’THIRD’s cookie policy explains the site’s limited use of browser storage and third-party links.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Cookie Policy",
   description,
-  ...(siteConfig.siteUrl ? { alternates: { canonical: "/cookies" } } : {}),
-};
+  path: "/cookies",
+});
 
 export default function CookiesPage() {
   return (
@@ -26,7 +26,7 @@ export default function CookiesPage() {
         },
         {
           title: "Third-party services",
-          content: <p>When you choose to open an external social or messaging link, that service may use its own cookies or similar technologies. Its practices are governed by its own privacy and cookie policies.</p>,
+          content: <p>When you choose to open an external social or messaging link, that service may use its own cookies or similar technologies. Portfolio video players from YouTube, Vimeo, or Google Drive are loaded only after you press “Watch film”; after that, the video provider may use cookies or similar technologies under its own policies. These services are not loaded by the page before you choose to play a film. Their practices are governed by their own privacy and cookie policies.</p>,
         },
         {
           title: "Changes to this policy",

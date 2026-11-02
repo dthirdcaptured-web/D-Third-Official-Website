@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "./site-chrome.jsx";
 
-const lastUpdated = "2026-10-31";
+export default function LegalPage({ eyebrow, title, introduction, sections, lastUpdated = "2026-10-31" }) {
+  const lastUpdatedLabel = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${lastUpdated}T00:00:00Z`));
 
-export default function LegalPage({ eyebrow, title, introduction, sections }) {
   return (
     <>
       <a className="skip-link" href="#main">Skip to content</a>
@@ -13,7 +18,7 @@ export default function LegalPage({ eyebrow, title, introduction, sections }) {
           <p className="eyebrow"><span className="eyebrow-mark" /> {eyebrow}</p>
           <h1>{title}</h1>
           <p className="legal-lede">{introduction}</p>
-          <p className="legal-updated">Last updated <time dateTime={lastUpdated}>October 31, 2026</time></p>
+          <p className="legal-updated">Last updated <time dateTime={lastUpdated}>{lastUpdatedLabel}</time></p>
         </header>
 
         <div className="legal-copy">

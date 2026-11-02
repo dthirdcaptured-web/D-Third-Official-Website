@@ -2,9 +2,9 @@ import Image from "next/image";
 import { siteConfig } from "../lib/site-config.js";
 import InquiryForm from "./inquiry-form.jsx";
 import MotionEffects from "./motion-effects.jsx";
-import SiteIntro from "./site-intro.jsx";
 import { SiteFooter, SiteHeader } from "./site-chrome.jsx";
 import WorkGallery from "./work-gallery.jsx";
+import WorkVideoSection from "./work-video-section.jsx";
 
 export default function HomePage() {
   const { desktop, mobile } = siteConfig.coverImage;
@@ -16,7 +16,6 @@ export default function HomePage() {
 
   return (
     <>
-      <SiteIntro />
       <MotionEffects />
       <a className="skip-link" href="#main">Skip to content</a>
 
@@ -36,13 +35,13 @@ export default function HomePage() {
           </div>
           <div className="identity-panel">
             <div className="identity-top reveal">
-              <p className="eyebrow"><span className="eyebrow-mark" /> D’Third Bautista / Videographer &amp; Visual storyteller</p>
+              <p className="eyebrow"><span className="eyebrow-mark" /> Videographer / Visual storyteller</p>
               <h1 className="wordmark hero-wordmark" id="hero-title">D’THIRD<span className="wordmark-period">.</span></h1>
               <p className="hero-line">Every frame<br />tells a story.</p>
             </div>
 
             <div className="identity-bottom reveal">
-              <p className="intro-note">Bawat litrato,<br />may kanya-kanyang storya.</p>
+              <p className="intro-note" lang="tl">Bawat litrato,<br />may kanya-kanyang storya.</p>
               <a className="text-link" href="#work">Explore selected work <span aria-hidden="true">↓</span></a>
             </div>
             <span className="side-index" aria-hidden="true">INDEPENDENT FILMMAKER&nbsp; · &nbsp;01—26</span>
@@ -102,8 +101,11 @@ export default function HomePage() {
                     </div>
                   )}
                   <div className="work-details">
-                    <h3>{item.title}</h3>
-                    <p>{[item.category, item.year].filter(Boolean).join(" · ") || `FILM ${String(index + 1).padStart(2, "0")}`}</p>
+                    <div className="work-details-copy">
+                      <h3>{item.title}</h3>
+                      <p>{[item.recognition || item.category, item.year].filter(Boolean).join(" · ") || `FILM ${String(index + 1).padStart(2, "0")}`}</p>
+                    </div>
+                  <WorkVideoSection url={item.videoUrl} title={item.title} category={item.category} />
                   </div>
                 </article>
               ))}
@@ -122,7 +124,7 @@ export default function HomePage() {
             <p className="eyebrow eyebrow-light reveal"><span className="eyebrow-mark" /> The approach</p>
             <h2 className="reveal" id="approach-title">The best stories<br />feel <em>like you.</em></h2>
             <div className="approach-lower reveal">
-              <p>D’Third Bautista creates wedding films and visual stories through D’Third Bautista Captured. From the first conversation to the final cut, each film is made to feel honest, considered, and worth returning to.</p>
+              <p>From the first conversation to the final cut, the aim is simple: make something honest, considered, and worth returning to.</p>
               <span className="approach-services">FILM&nbsp; · &nbsp;EDIT&nbsp; · &nbsp;STORY</span>
             </div>
           </div>

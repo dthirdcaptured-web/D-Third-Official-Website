@@ -1,19 +1,20 @@
 import LegalPage from "../legal-page.jsx";
-import { siteConfig } from "../../lib/site-config.js";
+import { createPageMetadata, siteConfig } from "../../lib/site-config.js";
 
 const description = "Learn what information D’THIRD does and does not collect through this website.";
 
-export const metadata = {
+export const metadata = createPageMetadata({
   title: "Privacy Policy",
   description,
-  ...(siteConfig.siteUrl ? { alternates: { canonical: "/privacy" } } : {}),
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (
     <LegalPage
       eyebrow="Your privacy"
       title="Privacy policy"
+      lastUpdated="2026-11-01"
       introduction="D’THIRD does not use this site to track visitors or collect inquiry form submissions. We receive personal information only when you choose to contact us."
       sections={[
         {
@@ -29,8 +30,12 @@ export default function PrivacyPage() {
           content: <p>We use messages to reply and, where relevant, to manage a potential or agreed project. We do not sell or rent inquiry information or use it for advertising. Messages are kept as needed to handle the inquiry and related business records, then deleted when no longer needed, subject to any legal obligations.</p>,
         },
         {
+          title: "Your privacy rights",
+          content: <p>Where applicable, you may ask whether your personal information is being processed, request access or correction, object to processing, request deletion or blocking when the law allows, request a portable copy, or lodge a complaint with the <a href="https://privacy.gov.ph" target="_blank" rel="noopener noreferrer">National Privacy Commission</a>. To make a request, contact D’Third Bautista using {siteConfig.contactEmail ? <a href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> : <a href="/#inquire">the project inquiry section</a>}.</p>,
+        },
+        {
           title: "External links",
-          content: <p>If you follow a link to Instagram, Facebook, Messenger, WhatsApp, Viber, or another outside service, that provider may collect information under its own privacy policy. D’THIRD does not control the data practices of those services.</p>,
+          content: <p>If you follow a link to Instagram, Facebook, Messenger, WhatsApp, Viber, or another outside service, that provider may collect information under its own privacy policy. If you choose to play a portfolio film, its YouTube, Vimeo, or Google Drive player is loaded only after you press “Watch film”; that provider may then process technical information such as your IP address, device or browser details, and cookies under its own privacy policy. D’THIRD does not control the data practices of those services.</p>,
         },
         {
           title: "Questions or requests",

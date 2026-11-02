@@ -601,9 +601,6 @@ textarea {
 .work-item:only-child .work-image-frame {
   aspect-ratio: 1.62;
 }
-.work-item:nth-child(even) {
-  margin-top: 110px;
-}
 .work-image-frame {
   position: relative;
   overflow: hidden;
@@ -736,11 +733,14 @@ textarea {
 .work-details {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 15px;
   padding-top: 16px;
   border-bottom: 1px solid var(--rule);
   padding-bottom: 13px;
+}
+.work-details-copy {
+  min-width: 0;
 }
 .work-details h3 {
   margin: 0;
@@ -755,6 +755,111 @@ textarea {
   font-size: 9px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+.work-video-trigger {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 0 9px 12px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 9px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.work-video-trigger:focus-visible,
+.work-video-close:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+.work-video-play {
+  width: 29px;
+  height: 29px;
+  display: grid;
+  place-items: center;
+  padding-left: 2px;
+  border: 1px solid rgba(23, 23, 21, 0.45);
+  border-radius: 50%;
+  font-size: 8px;
+  transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+.work-video-trigger:hover .work-video-play,
+.work-video-trigger:focus-visible .work-video-play {
+  color: var(--paper-light);
+  background: var(--ink);
+  transform: scale(1.06);
+}
+.work-video-dialog {
+  width: min(1080px, calc(100vw - 40px));
+  max-width: none;
+  margin: auto;
+  padding: clamp(18px, 3vw, 38px);
+  color: var(--paper-light);
+  background: #171715;
+  border: 1px solid rgba(247, 246, 242, 0.2);
+  box-shadow: 0 32px 110px rgba(0, 0, 0, 0.56);
+}
+.work-video-dialog[open] {
+  animation: gallery-dialog-in 0.45s cubic-bezier(0.2, 0.7, 0.15, 1) both;
+}
+.work-video-dialog::backdrop {
+  background: rgba(10, 10, 9, 0.86);
+  backdrop-filter: blur(10px);
+}
+.work-video-dialog-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 18px;
+}
+.work-video-kicker {
+  margin: 0 0 7px;
+  color: rgba(247, 246, 242, 0.62);
+  font-size: 8px;
+  letter-spacing: 0.17em;
+}
+.work-video-dialog h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+.work-video-close {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  color: var(--paper-light);
+  background: transparent;
+  border: 1px solid rgba(247, 246, 242, 0.48);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+.work-video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.work-video-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.work-video-note {
+  margin: 12px 0 0;
+  color: rgba(247, 246, 242, 0.62);
+  font-size: 8px;
+  letter-spacing: 0.08em;
 }
 .wedding-gallery-dialog {
   width: min(1280px, calc(100vw - 40px));
@@ -1387,6 +1492,10 @@ textarea {
   color: #9b402c;
   font-weight: 400;
 }
+.credentials-intro h1 {
+  max-width: 1050px;
+  font-size: clamp(58px, 9.2vw, 132px);
+}
 .credentials-lede {
   max-width: 440px;
   margin: 38px 0 0 auto;
@@ -1474,6 +1583,15 @@ textarea {
   margin-left: 6px;
   color: #9b402c;
   font-size: 13px;
+}
+.credential-work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.credential-work-actions .work-video-trigger {
+  padding: 0;
 }
 .credentials-certificates {
   padding-bottom: clamp(90px, 12vw, 160px);
@@ -1587,6 +1705,25 @@ textarea {
   color: #68675f;
   font-size: 12px;
   line-height: 1.8;
+}
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+}
+.error-retry {
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.error-retry:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
 .reveal {
@@ -1810,9 +1947,6 @@ textarea {
     margin-top: 45px;
     gap: 39px;
   }
-  .work-item:nth-child(even) {
-    margin-top: 0;
-  }
   .work-item:only-child .work-image-frame {
     aspect-ratio: 1.2;
   }
@@ -1946,6 +2080,9 @@ textarea {
   .not-found-page h1 {
     margin-top: 40px;
     font-size: clamp(72px, 18vw, 130px);
+  }
+  .credentials-intro h1 {
+    font-size: clamp(46px, 12.5vw, 80px);
   }
   .credentials-lede {
     margin: 32px 0 0;

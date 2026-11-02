@@ -4,6 +4,7 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   images: {
     formats: ["image/webp"],
+    minimumCacheTTL: 86400,
   },
   async headers() {
     const securityHeaders = [
@@ -19,7 +20,7 @@ const nextConfig = {
           "default-src 'self'",
           "base-uri 'self'",
           "object-src 'none'",
-          "frame-src 'none'",
+          "frame-src https://www.youtube-nocookie.com https://player.vimeo.com https://drive.google.com",
           "frame-ancestors 'none'",
           "form-action 'self' mailto:",
           "img-src 'self' data: blob:",
@@ -29,6 +30,7 @@ const nextConfig = {
           "connect-src 'self'",
           "manifest-src 'self'",
           "worker-src 'self' blob:",
+          "upgrade-insecure-requests",
         ].join("; ")
       : "frame-ancestors 'none'";
     securityHeaders.push({ key: "Content-Security-Policy", value: contentSecurityPolicy });
@@ -40,7 +42,16 @@ const nextConfig = {
       });
     }
 
-    return [{ source: "/:path*", headers: securityHeaders }];
+    const publicAssetCache = {
+      key: "Cache-Control",
+      value: "public, max-age=86400, s-maxage=86400, stale-while-revalidate=86400",
+    };
+
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/images/:path*", headers: [publicAssetCache] },
+      { source: "/third-logo.svg", headers: [publicAssetCache] },
+    ];
   },
 };
 

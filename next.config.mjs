@@ -3,8 +3,7 @@ const nextConfig = {
   trailingSlash: false,
   productionBrowserSourceMaps: false,
   images: {
-    formats: ["image/webp"],
-    minimumCacheTTL: 86400,
+    unoptimized: true,
   },
   async headers() {
     const securityHeaders = [

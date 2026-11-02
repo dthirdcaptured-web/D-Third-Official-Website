@@ -1,6 +1,6 @@
 # D’THIRD portfolio
 
-An editorial portfolio for an independent videographer, built with the Next.js App Router and ready to deploy on Vercel.
+An editorial portfolio for an independent videographer, built with the Next.js App Router and ready to deploy on Vercel or Cloudflare Workers.
 
 ## Run locally
 
@@ -29,11 +29,27 @@ Certificates are configured in `credentials` in `lib/site-config.js`. Add only v
 - The cinematic cover is a separate, typographic placeholder. Set `coverImage.desktop` and optionally `coverImage.mobile` in `lib/site-config.js` to `.webp` image paths under `public/images/`, such as `/images/cover-desktop.webp` and `/images/cover-mobile.webp`.
 - The cover uses a responsive `<picture>` source and `object-fit: cover`. Adjust its focal point in `app/globals.css` if needed.
 - Add full-color WebP portfolio photographs to `public/images/` and list them in `portfolioItems` in `lib/site-config.js`. The work images reveal from monochrome to color as they enter view. The portrait stays monochromatic.
-- Next Image Optimization is configured to emit WebP.
+- Images are pre-encoded WebP and served directly, so the deployment does not need an image-optimization service.
 
 ## Project inquiries
 
-Define `NEXT_PUBLIC_CONTACT_EMAIL` in the Vercel project environment settings. The form prepares a message in the visitor’s email app. It does not use a server-side form endpoint.
+Define `NEXT_PUBLIC_CONTACT_EMAIL` in your hosting provider's environment settings. The form prepares a message in the visitor’s email app. It does not use a server-side form endpoint.
+
+## Deploy to Cloudflare Workers
+
+This project uses the OpenNext Cloudflare adapter. In the Cloudflare Workers Build settings, use these commands:
+
+```sh
+# Build command
+npm run build:cloudflare
+
+# Deploy command
+npx wrangler deploy
+```
+
+The build command creates the Worker bundle; Wrangler then deploys it. For a local one-step deploy, run `npm run deploy`. Add `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_CONTACT_EMAIL` under the project's Build variables and secrets. Set `NEXT_PUBLIC_SITE_URL` to the production HTTPS origin so canonical metadata and the sitemap use your domain.
+
+For local Workers preview, run `npm run preview`. The project name in `wrangler.jsonc` is `d-third-official-website`.
 
 ## Deploy to Vercel
 
@@ -41,4 +57,4 @@ Import the repository in Vercel and keep the project root as the Root Directory.
 
 ## Security notes
 
-The inquiry form opens the visitor's mail app; the site does not accept or store form submissions. Global response headers reduce framing and MIME-sniffing risks. Keep `.env` files private and use Vercel's environment-variable settings for deployment.
+The inquiry form opens the visitor's mail app; the site does not accept or store form submissions. Global response headers reduce framing and MIME-sniffing risks. Keep `.env` files private and set deployment variables in your hosting provider's environment settings.
